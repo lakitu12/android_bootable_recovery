@@ -487,10 +487,20 @@ clear:
 	}
 #endif
 
+#ifndef TW_KEEP_ODM_MOUNTED
 	if (odm) odm->UnMount(Display_Error);
+#else
+	if (odm)
+		LOGINFO("Keeping odm mounted for recovery runtime services\n");
+#endif
 	if (recovery_mode)
 		Process_Keymaster_Version(ven, false);
+#ifndef TW_KEEP_VENDOR_MOUNTED
 	if (ven) ven->UnMount(Display_Error);
+#else
+	if (ven)
+		LOGINFO("Keeping vendor mounted for recovery runtime services\n");
+#endif
 	return true;
 }
 

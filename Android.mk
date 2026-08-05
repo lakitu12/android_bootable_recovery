@@ -317,6 +317,12 @@ endif
 ifneq ($(TW_ADDITIONAL_APEX_FILES),)
     LOCAL_CFLAGS += -DTW_ADDITIONAL_APEX_FILES=$(TW_ADDITIONAL_APEX_FILES)
 endif
+ifeq ($(TW_KEEP_VENDOR_MOUNTED),true)
+    LOCAL_CFLAGS += -DTW_KEEP_VENDOR_MOUNTED
+endif
+ifeq ($(TW_KEEP_ODM_MOUNTED),true)
+    LOCAL_CFLAGS += -DTW_KEEP_ODM_MOUNTED
+endif
 ifneq ($(TW_LOAD_VENDOR_MODULES),)
     LOCAL_SRC_FILES += kernel_module_loader.cpp
     LOCAL_C_INCLUDES += system/core/libmodprobe/include
