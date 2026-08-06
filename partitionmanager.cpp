@@ -653,6 +653,8 @@ void TWPartitionManager::Decrypt_Data() {
 		if (Key_Directory_Partition != nullptr)
 			if (!Key_Directory_Partition->Is_Mounted())
 				Mount_By_Path(Decrypt_Data->Key_Directory, false);
+		printf("TWRP-DBG: Decrypt_Data keydir=%s mounted=%d\n",
+		       Decrypt_Data->Key_Directory.c_str(), Key_Directory_Partition ? Key_Directory_Partition->Is_Mounted() : -1);
 		if (!Decrypt_Data->Key_Directory.empty()) {
 			Set_Crypto_Type("file");
 #ifdef TW_INCLUDE_FBE_METADATA_DECRYPT
@@ -677,7 +679,8 @@ void TWPartitionManager::Decrypt_Data() {
 					LOGINFO("Failed to mount data after metadata decrypt\n");
 				}
 			} else {
-				LOGINFO("Unable to decrypt metadata encryption\n");
+				printf("TWRP-DBG: fscrypt_mount_metadata_encrypted returned false\n");
+			LOGINFO("Unable to decrypt metadata encryption\n");
 			}
 #else
 			LOGERR("Metadata FBE decrypt support not present in this TWRP\n");
